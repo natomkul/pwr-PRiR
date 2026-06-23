@@ -1,3 +1,5 @@
+#pragma once
+
 #include "opener.h"
 
 class Anealling
@@ -5,6 +7,7 @@ class Anealling
  private:
     double temperature;
     int count;
+    int size;
 
     std::vector<std::shared_ptr<Node>> current;
     double Lcurrent;

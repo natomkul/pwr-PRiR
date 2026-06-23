@@ -54,18 +54,18 @@ void wind(double temp, const char* fname, const char* ss)
 
         window.clear();
 
-        for (int i = 0; i < nodes_size; i++)
+        for (int i = 0; i < (int)nodes.size(); i++)
         {
             sf::CircleShape dot(4.f);
             dot.setPosition(nodes[i]->X, nodes[i]->Y);
             dot.setFillColor(sf::Color::Yellow);
 
-            if ( i == (nodes_size - 1))
+            if ( i == ((int)nodes.size() - 1))
             {
                 sf::Vertex line[] =
                 {
                     sf::Vertex(sf::Vector2f(nodes[0]->X, nodes[0]->Y), sf::Color::Yellow),
-                    sf::Vertex(sf::Vector2f(nodes[nodes_size - 1]->X, nodes[nodes_size - 1]->Y), sf::Color::Yellow)
+                    sf::Vertex(sf::Vector2f(nodes[nodes.size() - 1]->X, nodes[nodes.size() - 1]->Y), sf::Color::Yellow)
                 };
                 
                 window.draw(line, 2, sf::Lines);

@@ -5,8 +5,6 @@
 #include <cmath>
 #include <memory>
 
-#define nodes_size 48
-
 struct Node
 {
  public:
@@ -18,6 +16,7 @@ class Data
 {
  private:
     std::vector<std::shared_ptr<Node>> nodes;
+    int size = 0;
 
     int min_x = 0;
     int min_y = 0;
@@ -34,6 +33,8 @@ class Data
 
     int get_minY();
     int get_maxY();
+
+    int get_size();
 
     std::vector<std::shared_ptr<Node>> get_nodes();
 };
