@@ -8,7 +8,7 @@ cd build
 declare -A seen
 
 for P in 1 2 4 8 16; do
-    output=$(mpirun -np "$P" --oversubscribe ./app)
+    output=$(mpirun -np "$P" --oversubscribe ./tests)
 
     while IFS= read -r line; do
         [ -z "$line" ] && continue
