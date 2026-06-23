@@ -47,9 +47,9 @@ void runAll(int argc, char** argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    parall(rank, size, 100000, "../kroA100.tsp");
-    parall(rank, size, 100000, "../kroA150.tsp");
-    parall(rank, size, 100000, "../kroA200.tsp");
+    parall(rank, size, 100000, "../TSPdata/kroC100.tsp");
+    parall(rank, size, 100000, "../TSPdata/kroD100.tsp");
+    parall(rank, size, 100000, "../TSPdata/kroE100.tsp");
 
     MPI_Finalize();
 }

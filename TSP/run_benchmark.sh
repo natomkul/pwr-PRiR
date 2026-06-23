@@ -3,8 +3,9 @@ set -e
 
 cd "$(dirname "$0")"
 mkdir -p csv
-rm -f csv/results_*.csv
 cd build
+
+declare -A seen
 
 for P in 1 2 4 8 16; do
     output=$(mpirun -np "$P" --oversubscribe ./app)
@@ -19,8 +20,9 @@ for P in 1 2 4 8 16; do
         instance=$(basename "$plik" .tsp)
         csv="../csv/results_${instance}.csv"
 
-        if [ ! -f "$csv" ]; then
+        if [ -z "${seen[$instance]}" ]; then
             echo "processes,time,length" > "$csv"
+            seen[$instance]=1
         fi
 
         echo "$P,$time,$length" >> "$csv"

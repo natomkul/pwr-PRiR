@@ -5,6 +5,12 @@ best_known = {
     "kroA100": 21282,
     "kroA150": 26524,
     "kroA200": 29368,
+    "kroB100": 22141,
+    "kroB150": 26130,
+    "kroB200": 29437,
+    "kroC100": 20749,
+    "kroD100": 21294,
+    "kroE100": 22068,
 }
 
 
@@ -14,6 +20,9 @@ def compute_error(results_csv, error_csv, optimal):
 
     data["error_%"] = (data["length"] - optimal) / optimal * 100
 
+    print("\n" + "-" * 42)
+    print(results_csv)
+    print("-" * 42)
     print(data)
 
     data.to_csv(error_csv, index=False)
@@ -50,6 +59,26 @@ def make_time_plot(results_csv, plot_png, title):
     plt.close()
 
 
+def make_combined_error_plot(instances, plot_png, title):
+    plt.figure(figsize=(8, 6))
+
+    for instance in instances:
+        data = pd.read_csv(f"csv/results_{instance}.csv")
+        data = data.sort_values("processes")
+
+        diff = data["length"] - best_known[instance]
+
+        plt.plot(data["processes"], diff, marker="o", label=instance)
+
+    plt.xlabel("liczba procesow")
+    plt.ylabel("otrzymana dlugosc - najlepsze znane rozwiazanie")
+    plt.title(title)
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(plot_png, dpi=300, bbox_inches="tight")
+    plt.close()
+
+
 for instance, optimal in best_known.items():
     results_csv = f"csv/results_{instance}.csv"
 
@@ -60,3 +89,9 @@ for instance, optimal in best_known.items():
 
     make_time_plot(results_csv, f"wykresy/time_{instance}.png",
                     f"Czas wykonania vs liczba procesow ({instance})")
+
+make_combined_error_plot(
+    ["kroA100", "kroB100", "kroC100", "kroD100", "kroE100"],
+    "wykresy/error_100.png",
+    "Otrzymana dlugosc - najlepsze znane rozwiazanie (instancje 100-miastowe)"
+)
